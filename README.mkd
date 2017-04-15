@@ -1,0 +1,47 @@
+# i2x data science challenge 
+
+## Usage
+The `Makefile` can be used to install the program requirements and run
+tests: 
+- to install the program dependencies, run in the same directory as the `Makefile` the command `make`
+- to run the tests, run `make test'
+
+### Tests
+The tests are done here with pytest (for python 3).
+
+### Configuration
+The `config.ini` file contains the values for the language of the analysed texts and the paths for the files to analyse.
+The `data` folder contains the files to be analysed.
+
+### Run the program
+To run the program: `python main.py [-h] [-n TOP_N]`, where `TOP_N` represents the number of keywords to be used to compare with the transcipts.
+
+## The complete process
+collect -> process (organise) -> clean (remove unecessary) -> analyze -> visualize
+
+**Goal:**
+We want to generate the top keywords (1-3 words length) found in _script.txt_ based on the corpus of transcript files (_transcript1...3.txt_).
+
+
+### Collection
+The collection is already done, provided the files.
+
+### Organising
+We could have to organise the data in a general format but in our case here, it is not needed as we will only clean it from useless terms and then output a list in a specific format.
+
+### Cleaning
+The cleaning process is about removing useless information from our data. In our case, we:
+- tokenize the data by words
+- lemmatize the tokens (that is, get the smallest word related to our token, e.g. "running" will become "run" and "flowers" "flower")
+- remove stop words, which are for the English language by default in nltk (here is the beginning of the list):  `['i', 'me', 'my', 'myself', 'we', 'our', 'ours', 'ourselves', 'you', 'your', 'yours', 'yourself', ...]`
+- lowercase each token
+- remove tokens less than one character 
+ 
+
+### Analyzing
+We compute the most important keywords (a keyword can be between 1-3 words) from a file and then rank these keywords within other files contents. The most important keywords are ranked simply by their highest frequency occurence within our `scrip.txt` file.
+
+## The modules
+In a real case, we would probably have more data, in a continuous flow. Being able to start processing the data while it is still being collected and
+organising it is preferrable over simply running the whole set of data over the complete process, for a gain of time and efficiency.
+Multiple modules that can run seperatly would allow to process the data in a continuous flow.
