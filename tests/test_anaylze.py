@@ -1,6 +1,6 @@
 '''Test file for analyze.py module'''
 
-import i2xchall.analyze
+import chall.analyze
 import unittest
 
 class TestAnalyze(unittest.TestCase):
@@ -13,7 +13,7 @@ class TestAnalyze(unittest.TestCase):
         '''
         tokens = ['green', 'paradise', 'city', 'city', 'city', 'grass', 'grass', 'green', 'green', 'city']
         expected_result = [('city', 4), ('green', 3), ('grass', 2), ('paradise', 1)]
-        result = i2xchall.analyze.get_top_keywords(tokens)
+        result = chall.analyze.get_top_keywords(tokens)
         self.assertEqual(expected_result, result)
 
     def test_get_keywords_rank_by_doc(self):
@@ -26,7 +26,7 @@ class TestAnalyze(unittest.TestCase):
         tokens = ['take', 'green', 'paradise', 'city', 'grass', 'green', 'paradise', 'green']
         len_tokens = len(tokens)
         expected_result = [('green', 3 / len_tokens), ('paradise', 2 / len_tokens), ('grass', 1 / len_tokens)]
-        result = i2xchall.analyze.get_keywords_rank_by_doc(keywords, tokens)
+        result = chall.analyze.get_keywords_rank_by_doc(keywords, tokens)
         self.assertEqual(expected_result, result)
 
 #if __name__ == "__name__":

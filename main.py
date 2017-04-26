@@ -11,13 +11,13 @@ import argparse
 import configparser
 from nltk.util import ngrams
 
-import i2xchall.clean
-import i2xchall.analyze
+import chall.clean
+import chall.analyze
 
 
 def get_parser():
     '''Get parser for command line arguments.'''
-    parser = argparse.ArgumentParser(description="i2x data science challenge.")
+    parser = argparse.ArgumentParser(description=" data science challenge.")
     parser.add_argument("-n",
                         "--top-words",
                         dest="top_n",
@@ -47,7 +47,7 @@ def main():
         sys.exit(1)
 
     print("Cleaning data from file %s..." % cinput_file)
-    clean_data_tokens = i2xchall.clean.get_clean_document(cinput_file, lang)
+    clean_data_tokens = chall.clean.get_clean_document(cinput_file, lang)
 
     # bigrams and trigrams represent keywords of 2 and 3 words-length
     bigrams = list(ngrams(clean_data_tokens, 2))
@@ -56,7 +56,7 @@ def main():
     clean_data_tokens += bigrams + trigrams
 
     print("Analyzing %s to get the most important keywords..." % cinput_file)
-    top_keywords = i2xchall.analyze.get_top_keywords(clean_data_tokens)
+    top_keywords = chall.analyze.get_top_keywords(clean_data_tokens)
 
     # Keep only the keywords ordered and discard their freq values
     top_keywords = [w for w, f in top_keywords]
@@ -64,7 +64,7 @@ def main():
     # Now, rank these keywords among the transcript texts
     clean_transcripts = []
     for text in corpus:
-        clean_transcripts.append(i2xchall.clean.get_clean_document(text, lang))
+        clean_transcripts.append(chall.clean.get_clean_document(text, lang))
 
     args.top_n = int(args.top_n)
     if args.top_n <= 0 or args.top_n > len(top_keywords):
@@ -73,7 +73,7 @@ def main():
         top_n = args.top_n
     keyword_ranks = []
     for clean_transcript in clean_transcripts:
-        keyword_ranks.append(i2xchall.analyze.get_keywords_rank_by_doc(top_keywords[:top_n], clean_transcript))
+        keyword_ranks.append(chall.analyze.get_keywords_rank_by_doc(top_keywords[:top_n], clean_transcript))
 
     for keyword_rank in keyword_ranks:
         print("Keyword ranking for text transcripts (1, 2 and 3):")

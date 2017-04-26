@@ -1,4 +1,4 @@
-# i2x data science challenge 
+# data science challenge 
 
 ## Usage
 The `Makefile` can be used to install the program requirements and run
